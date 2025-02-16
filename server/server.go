@@ -96,7 +96,7 @@ func convertLength(value float64, from, to string) float64 {
 func convertToMillimeter(value float64, from string) float64 {
 	var mm float64
 	switch from {
-	case "millimeter":
+	case "millimeters":
 		mm = value
 	case "centimeters":
 		mm = value * 10
@@ -104,13 +104,13 @@ func convertToMillimeter(value float64, from string) float64 {
 		mm = value * 1000
 	case "kilometers":
 		mm = value * 1000000
-	case "inch":
+	case "inches":
 		mm = value * 25.4
-	case "foot":
+	case "foots":
 		mm = value * 304.8
-	case "yard":
+	case "yards":
 		mm = value * 914.4
-	case "mile":
+	case "miles":
 		mm = value * 1609344
 	}
 	return mm
@@ -119,7 +119,7 @@ func convertToMillimeter(value float64, from string) float64 {
 func convertMillimeterToValue(millimeters float64, to string) float64 {
 	var finalValue float64
 	switch to {
-	case "millimeter":
+	case "millimeters":
 		finalValue = millimeters
 	case "centimeters":
 		finalValue = millimeters / 10
@@ -127,13 +127,13 @@ func convertMillimeterToValue(millimeters float64, to string) float64 {
 		finalValue = millimeters / 1000
 	case "kilometers":
 		finalValue = millimeters / 1000000
-	case "inch":
+	case "inches":
 		finalValue = millimeters / 25.4
-	case "foot":
+	case "foots":
 		finalValue = millimeters / 304.8
-	case "yard":
+	case "yards":
 		finalValue = millimeters / 914.4
-	case "mile":
+	case "miles":
 		finalValue = millimeters / 1609344
 	}
 	return finalValue
@@ -148,15 +148,15 @@ func convertWeight(value float64, from, to string) float64 {
 func convertToMilligram(value float64, from string) float64 {
 	var mg float64
 	switch from {
-	case "milligram":
+	case "milligrams":
 		mg = value
-	case "gram":
+	case "grams":
 		mg = value * 1000
-	case "kilogram":
+	case "kilograms":
 		mg = value * 1000000
-	case "ounce":
+	case "ounces":
 		mg = value * 28349.5231
-	case "pound":
+	case "pounds":
 		mg = value / 0.0000022046
 	}
 	return mg
@@ -165,15 +165,15 @@ func convertToMilligram(value float64, from string) float64 {
 func convertMilligramsToValue(milligrams float64, to string) float64 {
 	var finalValue float64
 	switch to {
-	case "milligram":
+	case "milligrams":
 		finalValue = milligrams
-	case "gram":
+	case "grams":
 		finalValue = milligrams / 1000
-	case "kilogram":
+	case "kilograms":
 		finalValue = milligrams / 1000000
-	case "ounce":
+	case "ounces":
 		finalValue = milligrams / 28349.5231
-	case "pound":
+	case "pounds":
 		finalValue = milligrams * 0.0000022046
 	}
 	return finalValue
