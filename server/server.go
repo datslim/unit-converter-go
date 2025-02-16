@@ -14,62 +14,69 @@ type PageData struct {
 const (
 	TypeLength      = "length"
 	TypeWeight      = "weight"
-	TypeTemperature = "temp"
+	TypeTemperature = "temperature"
 )
 
 func StartServer() {
 	mux := http.NewServeMux()
-	mux.HandleFunc("/", parseHTMLHandler)
-	mux.HandleFunc("/convert", convertHandler)
+	mux.HandleFunc("/convert", lengthHandler)
+	mux.HandleFunc("/convert/length", lengthHandler)
+	mux.HandleFunc("/convert/weight", weightHandler)
+	mux.HandleFunc("/convert/temperature", temperatureHandler)
 
 	// Запускаем сервер на порту 8080
 	fmt.Println("Server is running on http://localhost:8080")
 	http.ListenAndServe(":8080", mux)
 }
 
-func parseHTMLHandler(w http.ResponseWriter, r *http.Request) {
-	// Парсим HTML-шаблон
-	tmpl, err := template.ParseFiles("frontend/index.html")
-	if err != nil {
-		http.Error(w, "Unable to load template", http.StatusInternalServerError)
-		return
-	}
-
-	// Отображаем страницу с пустым результатом
-	data := PageData{Result: ""}
-	tmpl.Execute(w, data)
+func lengthHandler(w http.ResponseWriter, r *http.Request) {
+	handlerPages(w, r, TypeLength)
 }
 
-func convertHandler(w http.ResponseWriter, r *http.Request) {
-	if r.Method != http.MethodPost {
+func weightHandler(w http.ResponseWriter, r *http.Request) {
+	handlerPages(w, r, TypeWeight)
+}
+
+func temperatureHandler(w http.ResponseWriter, r *http.Request) {
+	handlerPages(w, r, TypeTemperature)
+}
+
+func handlerPages(w http.ResponseWriter, r *http.Request, typeOfConvert string) {
+	if r.Method == http.MethodPost {
+		// Обработка POST-запроса
+		typeString := typeOfConvert // Тип конвертации (вес)
+		valueStr := r.FormValue("value")
+		from := r.FormValue("from")
+		to := r.FormValue("to")
+
+		value, err := strconv.ParseFloat(valueStr, 64)
+		if err != nil {
+			http.Error(w, "Invalid value", http.StatusBadRequest)
+			return
+		}
+
+		result := convert(value, from, to, typeString)
+		data := PageData{Result: fmt.Sprintf("%.2f %s is %.2f %s", value, from, result, to)}
+
+		renderTemplate(w, "frontend/"+typeOfConvert+".html", data)
+	} else if r.Method == http.MethodGet {
+		renderTemplate(w, "frontend/"+typeOfConvert+".html", PageData{Result: ""})
+	} else {
 		http.Error(w, "Invalid request method", http.StatusMethodNotAllowed)
 		return
 	}
+}
 
-	// Получаем данные из формы
-	typeString := r.FormValue("type")
-	valueStr := r.FormValue("value")
-	from := r.FormValue("from")
-	to := r.FormValue("to")
-
-	// Преобразуем значение в число
-	value, err := strconv.ParseFloat(valueStr, 64)
-	if err != nil {
-		http.Error(w, "Invalid value", http.StatusBadRequest)
-		return
-	}
-
-	// Выполняем конвертацию
-	result := convert(value, from, to, typeString)
-	data := PageData{Result: fmt.Sprintf("%.2f %s is %.2f %s", value, from, result, to)}
-
-	// Парсим HTML-шаблон и отображаем результат
-	tmpl, err := template.ParseFiles("frontend/index.html")
+func renderTemplate(w http.ResponseWriter, tmpl string, data PageData) {
+	// Парсим HTML-шаблон
+	t, err := template.ParseFiles(tmpl)
 	if err != nil {
 		http.Error(w, "Unable to load template", http.StatusInternalServerError)
 		return
 	}
-	tmpl.Execute(w, data)
+
+	// Отображаем страницу с данными
+	t.Execute(w, data)
 }
 
 func convert(value float64, from, to, typeString string) float64 {
@@ -188,11 +195,11 @@ func convertTemperature(value float64, from, to string) float64 {
 func convertToCelcius(value float64, from string) float64 {
 	var c float64
 	switch from {
-	case "celsius":
+	case "Celsius":
 		c = value
-	case "fahrenheit":
+	case "Fahrenheit":
 		c = (value - 32) / 1.8000
-	case "kelvin":
+	case "Kelvin":
 		c = value - 273.15
 	}
 	return c
@@ -201,11 +208,11 @@ func convertToCelcius(value float64, from string) float64 {
 func convertCelsiusToValue(celsius float64, to string) float64 {
 	var finalValue float64
 	switch to {
-	case "celsius":
+	case "Celsius":
 		finalValue = celsius
-	case "fahrenheit":
+	case "Fahrenheit":
 		finalValue = celsius*1.8000 + 32
-	case "kelvin":
+	case "Kelvin":
 		finalValue = celsius + 273.15
 	}
 	return finalValue

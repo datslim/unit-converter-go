@@ -39,66 +39,57 @@
             </a>
         </div>
         <div class="converters grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <!-- Length Converter -->
 
-
-            <div id="length-converter"
-                class="converter bg-gradient-to-br from-blue-50 to-blue-100 p-4 md:p-6 rounded-xl shadow-md hover:shadow-xl transition-all duration-300">
-                <span class="material-symbols-outlined text-3xl md:text-4xl mb-3 md:mb-4">straighten</span>
+            <!-- Temperature Converter -->
+            <div id="temp-converter"
+                class="converter bg-gradient-to-br from-green-50 to-green-100 p-4 md:p-6 rounded-xl shadow-md hover:shadow-xl transition-all duration-300">
+                <span class="material-symbols-outlined md:text-4xl mb-3 md:mb-4">thermometer</span>
                 <h2
                     class="text-2xl md:text-3xl font-bold mb-6 text-left transition-all duration-300 hover:scale-105 select-none">
-                    Length Converter
+                    Temperature Converter
                 </h2>
-                <form action="/convert" method="post" class="space-y-6">
-                    <input type="hidden" name="type" value="length">
+                <form action="/convert/temperature" method="post" class="space-y-6">
+                    <input type="hidden" name="type" value="temp">
                     <div class="form-group">
-                        <label for="length-value" class="block mb-2 font-medium"></label>
-                        <input type="number" id="length-value" name="value" placeholder="Enter value" required
+                        <input type="number" id="weight-value" name="value" required placeholder="Enter value"
                             class="w-full p-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-blue-500 outline-none">
                     </div>
                     <div class="form-group">
-                        <label for="length-from" class="block mb-2 font-medium">Convert from</label>
-                        <select id="length-from" name="from"
+                        <label for="temp-from" class="block mb-2 font-medium">Convert from</label>
+                        <select id="temp-from" name="from"
                             class="w-full p-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-blue-500">
-                            <option value="millimeters">mm</option>
-                            <option value="centimeters">cm</option>
-                            <option value="meters">m</option>
-                            <option value="kilometers">km</option>
-                            <option value="inches">in</option>
-                            <option value="foots">ft</option>
-                            <option value="yards">yd</option>
-                            <option value="miles">mi</option>
+                            <option value="Celsius">℃</option>
+                            <option value="Fahrenheit">°F</option>
+                            <option value="Kelvins">°K</option>
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="length-to" class="block mb-2 font-medium">Convert to</label>
-                        <select id="length-to" name="to"
+                        <label for="temp-to" class="block mb-2 font-medium">Convert to</label>
+                        <select id="temp-to" name="to"
                             class="w-full p-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-blue-500">
-                            <option value="centimeters">cm</option>
-                            <option value="millimeters">mm</option>
-                            <option value="meters">m</option>
-                            <option value="kilometers">km</option>
-                            <option value="inches">in</option>
-                            <option value="foots">ft</option>
-                            <option value="yards">yd</option>
-                            <option value="miles">mi</option>
+                            <option value="Fahrenheit">°F</option>
+                            <option value="Celsius">℃</option>
+                            <option value="Kelvins">°K</option>
                         </select>
                     </div>
                     <button type="submit" class="w-full bg-gradient-to-br from-primary to-secondary text-black py-3 px-6 rounded-lg
 hover:-translate-y-1 transition-all duration-300 hover:shadow-md">
                         <p class="mb-2 font-medium">Convert</p>
                     </button>
-                    <div id="result"
-                        class="converter bg-gradient-to-br from-blue-30 to-orange-40 p-4 md:p-6 rounded-xl shadow-md hover:shadow-xl transition-all duration-300">
-                        <button type="button"
-                            class="w-full p-3 rounded-lg bg-orange-35 hover:bg-orange-40 transition-all duration-300 focus:ring-2 focus:ring-orange-300 active:scale-95"
-                            id="result-button">
-                            {{.Result}}
-                        </button>
-                    </div>
                 </form>
+                <div id="result"
+                    class="converter bg-gradient-to-br from-green-30 to-green-40 p-4 md:p-6 rounded-xl shadow-md hover:shadow-xl transition-all duration-300">
+                    <button type="button"
+                        class="w-full p-3 rounded-lg bg-orange-35 hover:bg-orange-40 transition-all duration-300 focus:ring-2 focus:ring-orange-300 active:scale-95"
+                        id="result-button">
+                        {{.Result}}
+                    </button>
+                </div>
             </div>
         </div>
+
+    </div>
+
 </body>
 
 </html>
