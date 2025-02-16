@@ -30,21 +30,21 @@ func StartServer() {
 }
 
 func lengthHandler(w http.ResponseWriter, r *http.Request) {
-	handlerPages(w, r, TypeLength)
+	handlePages(w, r, TypeLength)
 }
 
 func weightHandler(w http.ResponseWriter, r *http.Request) {
-	handlerPages(w, r, TypeWeight)
+	handlePages(w, r, TypeWeight)
 }
 
 func temperatureHandler(w http.ResponseWriter, r *http.Request) {
-	handlerPages(w, r, TypeTemperature)
+	handlePages(w, r, TypeTemperature)
 }
 
-func handlerPages(w http.ResponseWriter, r *http.Request, typeOfConvert string) {
+func handlePages(w http.ResponseWriter, r *http.Request, typeOfConvert string) {
 	if r.Method == http.MethodPost {
 		// Обработка POST-запроса
-		typeString := typeOfConvert // Тип конвертации (вес)
+		typeString := typeOfConvert
 		valueStr := r.FormValue("value")
 		from := r.FormValue("from")
 		to := r.FormValue("to")
