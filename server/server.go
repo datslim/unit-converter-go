@@ -29,7 +29,7 @@ func StartServer() {
 
 func parseHTMLHandler(w http.ResponseWriter, r *http.Request) {
 	// Парсим HTML-шаблон
-	tmpl, err := template.ParseFiles("index.html")
+	tmpl, err := template.ParseFiles("frontend/index.html")
 	if err != nil {
 		http.Error(w, "Unable to load template", http.StatusInternalServerError)
 		return
@@ -64,7 +64,7 @@ func convertHandler(w http.ResponseWriter, r *http.Request) {
 	data := PageData{Result: fmt.Sprintf("%.2f %s is %.2f %s", value, from, result, to)}
 
 	// Парсим HTML-шаблон и отображаем результат
-	tmpl, err := template.ParseFiles("index.html")
+	tmpl, err := template.ParseFiles("frontend/index.html")
 	if err != nil {
 		http.Error(w, "Unable to load template", http.StatusInternalServerError)
 		return
