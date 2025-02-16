@@ -19,7 +19,7 @@ const (
 
 func StartServer() {
 	mux := http.NewServeMux()
-	mux.HandleFunc("/convert", lengthHandler)
+	mux.HandleFunc("/", lengthHandler)
 	mux.HandleFunc("/convert/length", lengthHandler)
 	mux.HandleFunc("/convert/weight", weightHandler)
 	mux.HandleFunc("/convert/temperature", temperatureHandler)

@@ -6,14 +6,49 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Unit Converter</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap">
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background: linear-gradient(135deg, #ffffff, #d4d4d4);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 24px;
+        }
+
+        /* Стили для компактного select */
+        .compact-select {
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-color: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 8px 24px 8px 12px;
+            font-size: 14px;
+            cursor: pointer;
+            background-image: url("data:image/svg+xml;charset=US-ASCII,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' stroke='%23333' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' class='feather feather-chevron-down' viewBox='0 0 24 24'><path d='M6 9l6 6 6-6'/></svg>");
+            background-repeat: no-repeat;
+            background-position: right 8px center;
+            background-size: 16px;
+        }
+
+        .compact-select:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+        }
+    </style>
 </head>
 
-<body class="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
-    <div class="converter-container max-w-4xl mx-auto p-6">
+<body>
+    <div class="w-[800px] bg-white rounded-xl shadow-lg p-4 md:p-8">
         <h1
             class="text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold mb-6 md:mb-8 lg:mb-10 text-center transition-all duration-300 ease-in-out transform hover:scale-105 select-none">
             Unit Converter
@@ -27,72 +62,59 @@
             </a>
             <a href="/convert/weight">
                 <button
-                    class="px-6 py-3 rounded-3xl bg-red-100 hover:bg-red-200 transition-all duration-300 transform hover:-translate-y-1 focus:ring-2 focus:ring-red-300 active:scale-95">
+                    class="px-6 py-3 rounded-3xl bg-green-100 hover:bg-green-200 transition-all duration-300 transform hover:-translate-y-1 focus:ring-2 focus:ring-red-300 active:scale-95">
                     <span class="material-symbols-outlined">weight</span>
                 </button>
             </a>
             <a href="/convert/temperature">
                 <button
-                    class="px-6 py-3 rounded-3xl bg-green-100 hover:bg-green-200 transition-all duration-300 transform hover:-translate-y-1 focus:ring-2 focus:ring-green-300 active:scale-95">
+                    class="px-6 py-3 rounded-3xl bg-red-100 hover:bg-red-200 transition-all duration-300 transform hover:-translate-y-1 focus:ring-2 focus:ring-green-300 active:scale-95">
                     <span class="material-symbols-outlined">thermometer</span>
                 </button>
             </a>
         </div>
-        <div class="converters flex justify-center">
-            <!-- Weight Converter -->
-            <div id="weight-converter"
-                class="converter bg-gradient-to-br from-red-50 to-red-100 p-4 md:p-6 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 w-full max-w-md">
+        <div class="space-y-4">
+            <div
+                class="bg-gradient-to-br from-green-50 to-green-100 p-4 md:p-6 rounded-xl shadow-md hover:shadow-xl transition-all duration-300">
                 <span class="material-symbols-outlined text-3xl md:text-4xl mb-3 md:mb-4">weight</span>
-                <h2
-                    class="text-2xl md:text-3xl font-bold mb-6 text-left transition-all duration-300 hover:scale-105 select-none">
-                    Weight Converter
-                </h2>
-                <form action="/convert/weight" method="post" class="space-y-6">
+                <h2 class="text-lg md:text-xl font-semibold mb-3 md:mb-4">Weight Converter</h2>
+                <form id="converter-form" action="/convert/weight" method="post" class="space-y-6">
                     <input type="hidden" name="type" value="weight">
                     <div class="form-group">
-                        <input type="number" id="weight-value" name="value" required placeholder="Enter value"
-                            class="w-full p-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-blue-500 outline-none">
+                        <label for="length-value" class="block mb-2 font-medium"></label>
+                        <div class="flex items-center gap-2 md:gap-4">
+                            <input type="number" id="length-value" name="value" placeholder="Enter value" required
+                                class="w-full p-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-blue-500 outline-none">
+                            <select id="weight-to" name="from" class="compact-select">
+                                <option value="milligrams">mg</option>
+                                <option value="grams">g</option>
+                                <option value="kilograms">kg</option>
+                                <option value="ounces">oz</option>
+                                <option value="pounds">lb</option>
+                            </select>
+                        </div>
                     </div>
                     <div class="form-group">
-                        <label for="weight-from" class="block mb-2 font-medium">Convert from</label>
-                        <select id="weight-from" name="from"
-                            class="w-full p-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-blue-500">
-                            <option value="milligrams">mg</option>
-                            <option value="grams">g</option>
-                            <option value="kilograms">kg</option>
-                            <option value="ounces">oz</option>
-                            <option value="pounds">lb</option>
-                        </select>
+                        <div class="flex items-center gap-2 md:gap-4">
+                            <input type="text" id="length-result" name="result" placeholder={{.Result}} readonly
+                                class="w-full p-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-blue-500 outline-none bg-gray-100 ">
+                            <select id="weight-to" name="to" class="compact-select">
+                                <option value="grams">g</option>
+                                <option value="milligrams">mg</option>
+                                <option value="kilograms">kg</option>
+                                <option value="ounces">oz</option>
+                                <option value="pounds">lb</option>
+                            </select>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="weight-to" class="block mb-2 font-medium">Convert to</label>
-                        <select id="weight-to" name="to"
-                            class="w-full p-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-blue-500">
-                            <option value="grams">g</option>
-                            <option value="milligrams">mg</option>
-                            <option value="kilograms">kg</option>
-                            <option value="ounces">oz</option>
-                            <option value="pounds">lb</option>
-                        </select>
-                    </div>
-                    <button type="submit" class="w-full bg-gradient-to-br from-primary to-secondary text-black py-3 px-6 rounded-lg
-hover:-translate-y-1 transition-all duration-300 hover:shadow-md">
+                    <button type="submit"
+                        class="w-full bg-gradient-to-br from-primary to-secondary text-black py-3 px-6 rounded-lg hover:-translate-y-1 transition-all duration-300 hover:shadow-md">
                         <p class="mb-2 font-medium">Convert</p>
                     </button>
-                    <div id="result"
-                        class="converter bg-gradient-to-br from-red-30 to-red-40 p-4 md:p-6 rounded-xl shadow-md hover:shadow-xl transition-all duration-300">
-                        <button type="button"
-                            class="w-full p-3 rounded-lg bg-orange-35 hover:bg-orange-40 transition-all duration-300 focus:ring-2 focus:ring-orange-300 active:scale-95"
-                            id="result-button">
-                            {{.Result}}
-                        </button>
-                    </div>
                 </form>
             </div>
-
-
-
         </div>
+    </div>
 </body>
 
 </html>
