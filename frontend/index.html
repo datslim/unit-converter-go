@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unit Converter</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            --primary-color: #6a11cb;
+            --secondary-color: #2575fc;
+            --background-color: #f8f9fa;
+            --card-background: #ffffff;
+            --text-color: #333333;
+            --border-radius: 12px;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--background-color);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: var(--text-color);
+
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--text-color);
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            font-weight: 600;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .converter-container {
+            max-width: 1200px;
+            width: 90%;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .converters {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .converter {
+            background-color: var(--card-background);
+            padding: 25px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .converter:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        h1:hover {
+            color: rgb(109, 247, 201);
+            transform: translateY(-2px);
+
+        }
+
+        h1 {
+            color: aquamarine;
+        }
+
+        .converter h2 {
+            color: rgb(0, 110, 255);
+            margin-top: 0;
+            font-size: 1.8em;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .converter h2 i {
+            color: var(--secondary-color);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text-color);
+            font-weight: 500;
+        }
+
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        input[type="number"]:focus,
+        select:focus {
+            border-color: var(--primary-color);
+            outline: none;
+            box-shadow: 0 0 8px rgba(106, 17, 203, 0.2);
+        }
+
+        button {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 14px 24px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            width: 100%;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        #result {
+            margin-top: 40px;
+            text-align: center;
+            font-size: 1.2em;
+            color: var(--text-color);
+            padding: 20px;
+            background-color: var(--card-background);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+        }
+
+        #result h2 {
+            margin-bottom: 10px;
+            font-size: 1.5em;
+            color: var(--primary-color);
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2em;
+            }
+
+            .converter {
+                padding: 20px;
+            }
+
+            .converter h2 {
+                font-size: 1.5em;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="converter-container">
+        <h1>Unit Converter</h1>
+        <div class="converters">
+            <!-- Length Converter -->
+            <div class="converter">
+                <h2>
+                    <i class="fas fa-ruler"></i>
+                    Length Converter
+                </h2>
+                <form action="/convert" method="post">
+                    <input type="hidden" name="type" value="length">
+                    <div class="form-group">
+                        <label for="length-value">Enter the length to convert</label>
+                        <input type="number" id="length-value" name="value" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="length-from">Unit convert from</label>
+                        <select id="length-from" name="from">
+                            <option value="millimeter">mm</option>
+                            <option value="centimeters">cm</option>
+                            <option value="meters">m</option>
+                            <option value="kilometers">km</option>
+                            <option value="inch">in</option>
+                            <option value="foot">ft</option>
+                            <option value="yard">yd</option>
+                            <option value="mile">mi</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="length-to">Unit convert to</label>
+                        <select id="length-to" name="to">
+                            <option value="centimeters">cm</option>
+                            <option value="millimeter">mm</option>
+                            <option value="meters">m</option>
+                            <option value="kilometers">km</option>
+                            <option value="inch">in</option>
+                            <option value="foot">ft</option>
+                            <option value="yard">yd</option>
+                            <option value="mile">mi</option>
+                        </select>
+                    </div>
+                    <button type="submit">Convert</button>
+                </form>
+            </div>
+
+            <!-- Weight Converter -->
+            <div class="converter">
+                <h2>
+                    <i class="fas fa-weight-hanging"></i>
+                    Weight Converter
+                </h2>
+                <form action="/convert" method="post">
+                    <input type="hidden" name="type" value="weight">
+                    <div class="form-group">
+                        <label for="weight-value">Enter the weight to convert</label>
+                        <input type="number" id="weight-value" name="value" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="weight-from">Unit convert from</label>
+                        <select id="weight-from" name="from">
+                            <option value="milligram">mg</option>
+                            <option value="gram">g</option>
+                            <option value="kilogram">kg</option>
+                            <option value="ounce">kz</option>
+                            <option value="pound">lb</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="weight-to">Unit convert to</label>
+                        <select id="weight-to" name="to">
+                            <option value="gram">g</option>
+                            <option value="milligram">mg</option>
+                            <option value="kilogram">kg</option>
+                            <option value="ounce">kz</option>
+                            <option value="pound">lb</option>
+                        </select>
+                    </div>
+                    <button type="submit">Convert</button>
+                </form>
+            </div>
+
+            <!-- Temperature Converter -->
+            <div class="converter">
+                <h2>
+                    <i class="fas fa-thermometer-half"></i>
+                    Temperature Converter
+                </h2>
+                <form action="/convert" method="post">
+                    <input type="hidden" name="type" value="temp">
+                    <div class="form-group">
+                        <label for="temp-value">Enter the temperature to convert</label>
+                        <input type="number" id="temp-value" name="value" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="temp-from">Unit convert from</label>
+                        <select id="temp-from" name="from">
+                            <option value="celsius">℃</option>
+                            <option value="fahrenheit">°F</option>
+                            <option value="kelvin">°K</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="temp-to">Unit convert from</label>
+                        <select id="temp-to" name="to">
+                            <option value="fahrenheit">°F</option>
+                            <option value="celsius">℃</option>
+                            <option value="kelvin">°K</option>
+                        </select>
+                    </div>
+                    <button type="submit">Convert</button>
+                </form>
+            </div>
+        </div>
+
+        <div id="result">
+            <h2>Result:</h2>
+            <p>{{.Result}}</p>
+        </div>
+    </div>
+</body>
+
+</html>
