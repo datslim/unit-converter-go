@@ -33,9 +33,18 @@
             margin-bottom: 30px;
             font-size: 2.5em;
             font-weight: 600;
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            background: linear-gradient(135deg, #f2f0f3, var(--secondary-color));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+        }
+
+        h1:hover {
+            color: var(--text-color);
+            background: linear-gradient(135deg, #cdcacf, var(--secondary-color));
+            transform: translateY(-2px);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+
         }
 
         .converter-container {
@@ -54,7 +63,7 @@
         .converter {
             background-color: var(--card-background);
             padding: 25px;
-            border-radius: var(--border-radius);
+            border-radius: 30px;
             box-shadow: var(--shadow);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
@@ -64,15 +73,6 @@
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
         }
 
-        h1:hover {
-            color: rgb(109, 247, 201);
-            transform: translateY(-2px);
-
-        }
-
-        h1 {
-            color: aquamarine;
-        }
 
         .converter h2 {
             color: rgb(0, 110, 255);
@@ -121,7 +121,7 @@
             color: white;
             padding: 14px 24px;
             border: none;
-            border-radius: 8px;
+            border-radius: 13px;
             cursor: pointer;
             font-size: 16px;
             font-weight: 500;
@@ -150,6 +150,20 @@
             font-size: 1.5em;
             color: var(--primary-color);
         }
+
+
+        #length-value {
+            width: 93%;
+        }
+
+        #weight-value {
+            width: 93%;
+        }
+
+        #temp-value {
+            width: 93%;
+        }
+
 
         @media (max-width: 768px) {
             h1 {
